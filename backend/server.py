@@ -39,13 +39,22 @@ api_router.include_router(feature_router)
 
 app.include_router(api_router)
 
-# CORS
+# CORS — browsers block credentials=True with wildcard origin.
+# In production set CORS_ORIGINS=https://your-vercel-domain.vercel.app
+_raw_origins = os.environ.get("CORS_ORIGINS", "")
+if _raw_origins.strip():
+    _origins = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+else:
+    # Development fallback: allow all (credentials disabled automatically by browser when no origin set)
+    _origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get("CORS_ORIGINS", "*").split(","),
+    allow_origins=_origins,
+    allow_credentials=(_origins != ["*"]),  # credentials only with explicit origins
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")

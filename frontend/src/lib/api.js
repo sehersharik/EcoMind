@@ -6,9 +6,13 @@ import axios from "axios";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "";
 export const API = `${BACKEND_URL}/api`;
 
+// withCredentials only needed for cross-origin (local dev); on Vercel we're
+// same-origin so it's unnecessary and causes CORS preflight failures.
+const isCrossOrigin = Boolean(process.env.REACT_APP_BACKEND_URL);
+
 const api = axios.create({
   baseURL: API,
-  withCredentials: true,
+  withCredentials: isCrossOrigin,
 });
 
 api.interceptors.request.use((config) => {
