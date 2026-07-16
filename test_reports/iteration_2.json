@@ -1,0 +1,47 @@
+{
+  "summary": "Verified the savings-calculation bug fix in /api/prompt/optimize. All 36 backend pytest tests pass (27 original + 9 new tests for the bug). Frontend Copilot compare panel confirmed to show only non-negative values for both verbose and already-short prompts. Notably, a short prompt ('Reverse a string in Python.') caused the LLM to return a LONGER optimized version, and the new estimate_savings() helper correctly clamped tokens_saved / carbon_saved / cost_saved / water_saved / energy_saved / time_saved_s to exactly 0 (previously would have been negative). Math verified: for 11-token delta on Claude, carbon=0.034g (11×3.10/1000), cost=$0.00009, water=0.12ml — matches expected multipliers exactly. Empty and whitespace prompts return all zeros without crashing. estimate_tokens('') correctly returns 0. Accept flow does not decrement any total_* field.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Copilot compare panel (zero-savings case)",
+        "issues": [
+          "When tokens_saved is 0, the tokens tile displays '-0' (Copilot.jsx line 338 hard-codes a minus prefix: `value: `-${optimized.tokens_saved}` `). Reads awkwardly. Suggest: show plain '0' or 'No savings' when tokens_saved === 0. Also '−0 tokens' badge in header (line 312) has same issue. Not a bug — just polish."
+        ]
+      }
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Optional polish: In /app/frontend/src/pages/Copilot.jsx replace `-${optimized.tokens_saved}` with a conditional (show '0' or hide the minus when tokens_saved===0) to avoid the '-0 tokens' cosmetic issue in the compare panel header + tokens tile."
+  ],
+  "critical_code_review_comments": [
+    "ai_service.estimate_savings correctly uses max(0, tokens_before - tokens_after) — guarantees non-negative delta before applying multipliers. Clean, minimal, correct fix.",
+    "routes.optimize() falls back to original prompt when the optimizer returns empty/whitespace — good guard.",
+    "estimate_tokens('') now returns 0 (was 1) — matches spec. Non-empty strings still return >= 1 via math.ceil(len/4).",
+    "routes.accept_optimization: coins = max(1, doc['tokens_saved'] // 5) — this still awards 1 coin even when tokens_saved is 0. That's intentional per current code (min reward for trying) but user could farm coins by accepting no-op optimizations. Not part of this bug; flagging as behavioral note.",
+    "MODEL_METRICS values used by tests are duplicated inside test file — acceptable since they're stable industry-estimate constants (documented as mock in the review request).",
+    "No changes needed elsewhere — the refactor is well contained to ai_service.estimate_savings + routes.optimize()."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py (added TestSavingsCalculations class with 9 new tests)"
+  ],
+  "success_rate": {
+    "backend": "100% (36/36 pytest tests)",
+    "frontend": "100% for the tested bug (Copilot compare panel non-negative verified for verbose + short prompt)"
+  },
+  "test_credentials": "Backend tests auto-generate test_<uuid>@ecomind.app / test1234. Frontend UI test used uitest_<epoch>@ecomind.app / test1234.",
+  "seed_data_creation": "None — dynamic user creation per test run.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Bug fix fully verified end-to-end (backend + frontend). Only minor cosmetic polish remaining is the '-0 tokens' display in Copilot.jsx when there are no savings. Full test suite is /app/backend/tests/backend_test.py — 36 tests, ~16s runtime. New class `TestSavingsCalculations` covers all 6 bug scenarios plus the delta-math regression. Landing page (from iteration 1 report) still needs UI verification post-r3f v9 upgrade, but that's a separate concern from this iteration.",
+  "rca_of_the_issue": "Root cause (fixed): Old code computed savings as `impact(tokens_before) - impact(tokens_after)`, which could go negative when the LLM returned a longer 'optimized' prompt. Fix: new `estimate_savings(before, after, model)` helper in ai_service.py first computes `delta = max(0, before - after)` and applies multipliers on the delta, guaranteeing all savings fields are >= 0. Routes now use this helper and also fall back to the original prompt when the optimizer output is empty/whitespace. Verified reproduction case: prompt='Reverse a string in Python.' (7 tokens) → LLM returns 'Write a Python function to reverse a string.' (12 tokens) → old code would have produced negative savings; new code returns exactly 0 for all savings fields."
+}

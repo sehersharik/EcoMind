@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  color-scheme: dark;
+  --background: 0 0% 3%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 5%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 7%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 160 84% 39%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 240 5% 65%;
+  --accent: 160 84% 39%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 62% 45%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 100% / 0.08;
+  --input: 0 0% 100% / 0.08;
+  --ring: 160 84% 39%;
+  --radius: 1rem;
+  --chart-1: 160 84% 39%;
+  --chart-2: 189 94% 43%;
+  --chart-3: 43 96% 56%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 20 90% 55%;
+}
+
+* {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+html, body, #root {
+  background: #050505;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #050505;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.3); }
+
+/* Typography helpers */
+.font-display { font-family: 'Outfit', system-ui, sans-serif; letter-spacing: -0.02em; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Selection */
+::selection { background: rgba(16, 185, 129, 0.3); color: #ffffff; }
+
+/* Glass surface */
+.glass {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-strong {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glow */
+.glow-emerald { box-shadow: 0 0 40px rgba(16, 185, 129, 0.35), 0 0 80px rgba(16, 185, 129, 0.15); }
+.glow-cyan { box-shadow: 0 0 40px rgba(6, 182, 212, 0.3); }
+
+/* Animations */
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes pulse-slow { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+@keyframes spin-slow { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@keyframes grid-move { 0% { background-position: 0 0; } 100% { background-position: 48px 48px; } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-pulse-slow { animation: pulse-slow 4s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 30s linear infinite; }
+
+/* Grid background */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-grid-animated { animation: grid-move 20s linear infinite; }
+
+/* Noise overlay */
+.noise {
+  position: relative;
+}
+.noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+}
+
+/* Pill button base */
+.btn-pill {
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+.btn-pill:hover { transform: translateY(-1px); }
+.btn-pill:active { transform: translateY(0); }
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-2px);
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.2);
+}
+
+/* Chat message markdown */
+.markdown p { margin: 0.5rem 0; line-height: 1.7; }
+.markdown h1, .markdown h2, .markdown h3 { font-family: 'Outfit', sans-serif; margin-top: 1rem; margin-bottom: 0.5rem; font-weight: 600; }
+.markdown h1 { font-size: 1.5rem; }
+.markdown h2 { font-size: 1.25rem; }
+.markdown h3 { font-size: 1.1rem; }
+.markdown code { background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 0.15rem 0.35rem; border-radius: 0.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
+.markdown pre { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); padding: 1rem; border-radius: 0.75rem; overflow-x: auto; margin: 0.75rem 0; }
+.markdown pre code { background: transparent; color: #e5e5e5; padding: 0; }
+.markdown ul, .markdown ol { margin: 0.5rem 0 0.5rem 1.5rem; }
+.markdown li { margin: 0.25rem 0; }
+.markdown a { color: #10b981; text-decoration: underline; text-underline-offset: 3px; }
+.markdown blockquote { border-left: 3px solid #10b981; padding-left: 1rem; opacity: 0.85; margin: 0.75rem 0; }
+.markdown table { border-collapse: collapse; margin: 0.75rem 0; }
+.markdown th, .markdown td { border: 1px solid rgba(255,255,255,0.1); padding: 0.4rem 0.75rem; }
+
+/* Radix / shadcn overrides for dark */
+.dark-theme { color-scheme: dark; }
+
+.streaming-cursor::after {
+  content: '▍';
+  display: inline-block;
+  margin-left: 2px;
+  animation: pulse-slow 1s ease-in-out infinite;
+  color: #10b981;
+}

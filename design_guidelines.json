@@ -1,0 +1,133 @@
+{
+  "theme": "Dark Mode Default with Green & Cyan Glow (Eco-Tech Apple-inspired)",
+  "typography": {
+    "headings": {
+      "family": "Cabinet Grotesk, Outfit, or General Sans",
+      "weights": ["Light", "Bold", "Black"],
+      "tracking": "tracking-tight"
+    },
+    "body": {
+      "family": "IBM Plex Sans or Inter",
+      "weights": ["Regular", "Medium"],
+      "tracking": "tracking-normal"
+    },
+    "mono": {
+      "family": "JetBrains Mono",
+      "usage": "Code highlighting, token counts, metrics, terminal styles"
+    }
+  },
+  "colors": {
+    "backgrounds": {
+      "primary": "#050505",
+      "secondary": "#0A0A0A",
+      "tertiary": "#111111"
+    },
+    "surfaces": {
+      "glass": "bg-black/60 backdrop-blur-2xl border-white/10",
+      "card": "bg-[#0C0C0C] border border-white/5",
+      "hover": "bg-[#151515]"
+    },
+    "accents": {
+      "primary": "#10B981",
+      "cyan": "#06B6D4",
+      "gradient": "bg-gradient-to-r from-emerald-500 to-cyan-500",
+      "glow": "drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A1A1AA",
+      "muted": "#71717A"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": "High-end glass: bg-black/60, backdrop-blur-xl, 1px inner border of white/10, subtle shadow",
+    "gradients": "Used sparingly for text fills (bg-clip-text) and subtle glows behind cards. Not as massive flat backgrounds.",
+    "borders": "Ultra-thin 1px solid white/5 or white/10. No thick borders.",
+    "shadows": "Ambient glows using colored shadows for primary buttons (e.g., emerald/20)",
+    "noise": "Subtle grain overlay (opacity 2-5%) on dark backgrounds to prevent banding"
+  },
+  "layouts": {
+    "landing": "Full height 100vh hero sections. Bento grid for features. Absolute positioning for 3D elements behind glass overlays.",
+    "dashboard": "Fixed sidebar, dense data layouts, grid-cols-4 or grid-cols-12 bento cards.",
+    "chat": "Centered max-w-4xl container, sticky bottom input area, distinct user vs AI message bubbles with streaming typography effects.",
+    "spacing": "p-8 to p-12 for major sections. gap-6 for bento grids."
+  },
+  "components": {
+    "buttons": "Pill-shaped (rounded-full). Primary uses emerald-cyan gradient with glow. Secondary is glass (bg-white/5, border-white/10) with text-white hover:bg-white/10.",
+    "cards": "Subtle rounded (rounded-2xl or rounded-3xl), border-white/5, hover:-translate-y-1 hover:border-emerald-500/30 transition-all duration-300.",
+    "inputs": "Glassmorphism styling, focus:ring-1 focus:ring-emerald-500, placeholder:text-zinc-600.",
+    "badges": "rounded-full px-3 py-1 text-xs border border-emerald-500/20 bg-emerald-500/10 text-emerald-400"
+  },
+  "motion": {
+    "framer_motion": "Used for page transitions, card staggering, and smooth state changes.",
+    "hover_states": "Micro-interactions: scale up icons slightly, glow borders, lift cards.",
+    "streaming": "Typewriter effect for AI chat streaming."
+  },
+  "3d_libraries": {
+    "react-three-fiber": "Used for 3D Earth rendering in hero section",
+    "drei": "Helpers for R3F to add environment and floating animations",
+    "three-globe": "Used to create the glowing blue-green globe with AI network connection lines and floating particles"
+  },
+  "image_urls": {
+    "hero_backgrounds": [
+      {
+        "url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjd8MHwxfHNlYXJjaHwxfHxlYXJ0aCUyMGZyb20lMjBzcGFjZSUyMGRhcmt8ZW58MHx8fHwxNzg0MTI4MjA5fDA&ixlib=rb-4.1.0&q=85",
+        "category": "Hero Fallback",
+        "description": "Dark earth view for background when 3D is loading"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1645391352263-0b12478ffffe?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTN8MHwxfHNlYXJjaHw0fHxhYnN0cmFjdCUyMGdyZWVuJTIwbGlnaHQlMjBwYXJ0aWNsZXN8ZW58MHx8fHwxNzg0MTI4MjA5fDA&ixlib=rb-4.1.0&q=85",
+        "category": "Particle Overlay",
+        "description": "Abstract green light particles for dashboard accents"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1685871286419-58e4fc0de8e1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhYnN0cmFjdCUyMDNkJTIwc2hhcGUlMjBncmVlbiUyMGN5YW58ZW58MHx8fHwxNzg0MTI4MjQ0fDA&ixlib=rb-4.1.0&q=85",
+        "category": "Abstract Elements",
+        "description": "3D modern abstract shape with green/cyan hues for feature section backgrounds"
+      }
+    ],
+    "avatars": [
+      {
+        "url": "https://images.pexels.com/photos/7832476/pexels-photo-7832476.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "User Profile",
+        "description": "Premium user avatar"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1740252117027-4275d3f84385?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwzfHx1c2VyJTIwYXZhdGFyJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzg0MTI4MjA5fDA&ixlib=rb-4.1.0&q=85",
+        "category": "User Profile",
+        "description": "3D modern avatar"
+      }
+    ],
+    "logos": [
+      {
+        "url": "https://images.pexels.com/photos/15863044/pexels-photo-15863044.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "AI Models",
+        "description": "OpenAI logo for Model Recommendation Card"
+      }
+    ]
+  },
+  "accessibility": {
+    "contrast": "Ensure text contrast meets APCA standard. Use white text over dark backgrounds.",
+    "focus": "focus:ring-2 focus:ring-emerald-500 focus:outline-none on all interactive elements.",
+    "motion": "Respect prefers-reduced-motion using Tailwind motion-safe and motion-reduce.",
+    "data_testid": "All interactive and key informational elements MUST include a data-testid attribute to facilitate robust automated testing."
+  },
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "You tend to converge toward generic outputs. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "You MUST NOT apply universal transition (e.g., transition: all). Always specify properties.",
+    "You MUST NOT center align the app container. No .App { text-align: center; }.",
+    "Always use modern button styles like pill-shaped, with interaction animations & context color.",
+    "NEVER use placeholder text or dummy image URLs.",
+    "Use 2-3x more spacing than feels comfortable.",
+    "Use sonner for toast notifications.",
+    "Every interactive element MUST have data-testid in kebab-case."
+  ],
+  "GENERAL UI UX DESIGN GUIDELINES": [
+    "Prioritize optical alignment over geometrical alignment.",
+    "Use layered shadows (ambient + direct) to create depth on dark mode.",
+    "Never use completely transparent backgrounds on headers or drop-downs over content.",
+    "Use grid-template-columns for dashboard density, with tight gaps and strict visual hierarchy."
+  ],
+  "instructions_to_main_agent": "Implement these guidelines rigidly. Use purely Tailwind classes for styling (e.g. backdrop-blur-xl). Integrate react-three-fiber for the 3D rotating earth in the Hero section. For gamification elements (confetti, badges), ensure smooth Framer Motion animations. Avoid default Bootstrap or Material looks; prioritize a custom, Apple-inspired minimal glass aesthetic."
+}
