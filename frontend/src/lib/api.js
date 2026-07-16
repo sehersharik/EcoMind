@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+// In production (Vercel), REACT_APP_BACKEND_URL is empty so we use relative
+// paths — Vercel's rewrite rules proxy /api/* to the backend service.
+// Locally, set REACT_APP_BACKEND_URL=http://localhost:8000 in frontend/.env
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "";
 export const API = `${BACKEND_URL}/api`;
 
 const api = axios.create({
